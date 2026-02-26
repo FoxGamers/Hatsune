@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 
-class Image(commands.Cog):
+class Command_Image(commands.Cog):
     def __init__(self, client):
         self.client = client
     
@@ -30,4 +30,4 @@ class Image(commands.Cog):
         await ctx.send(embed = embed_image)
 
 async def setup(client):
-    await client.add_cog(Image(client))
+    await client.add_cog(Command_Image(client))

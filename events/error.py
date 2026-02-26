@@ -1,35 +1,10 @@
-import discord
 from discord.ext.commands import errors
 from discord.ext import commands
 
-class Manager(commands.Cog):
+class Event_Error(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @commands.Cog.listener()
-    async def on_ready(self):
-        print(f"{self.client.user.name} is online!")
-        await self.client.change_presence(activity=discord.Game(name="!Ievan Polkka"))
-
-    @commands.Cog.listener()
-    async def on_message(self, message):
-        arq = "commands/files/detox.txt"
-
-        with open(arq) as file:
-            lines = sorted(set(line.rstrip().lower() for line in file))
-
-        with open(arq, 'w') as file:
-            file.writelines(line + '\n' for line in lines)
-
-        for line in lines:
-            if message.author == self.client.user:
-                return
-            
-            if line in message.content.lower():
-                await message.delete()
-                await message.channel.send(f"Por favor, {message.author.name}, não ofenda os demais usuários!")
-        file.close()
-    
     @commands.Cog.listener()
     async def on_command_error(self, ctx, error):
         if isinstance(error, errors.MissingRequiredArgument):
@@ -49,4 +24,4 @@ class Manager(commands.Cog):
             raise error
 
 async def setup(client):
-    await client.add_cog(Manager(client))
+    await client.add_cog(Event_Error(client))

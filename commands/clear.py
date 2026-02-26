@@ -1,7 +1,7 @@
 from discord.ext import commands
 from typing import Optional
 
-class Clear(commands.Cog):
+class Command_Clear(commands.Cog):
     def __init__(self, client):
         self.client = client
     
@@ -13,4 +13,4 @@ class Clear(commands.Cog):
         await ctx.channel.purge(limit=amount)
 
 async def setup(client):
-    await client.add_cog(Clear(client))
+    await client.add_cog(Command_Clear(client))

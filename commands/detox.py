@@ -1,27 +1,37 @@
 import os
 from discord.ext import commands
 
-class Detox(commands.Cog):
+class Command_Detox(commands.Cog):
     def __init__(self, client):
         self.client = client
-        self.detox_file = "commands/files/detox.txt"
+
+        # Pega a pasta raiz do projeto (HATSUNE)
+        base_dir = os.path.dirname(os.path.dirname(__file__))
+
+        # Monta o caminho corretamente
+        self.detox_file = os.path.join(base_dir, "commands", "files", "detox.txt")
+
+        # Cria o arquivo se não existir
         if not os.path.exists(self.detox_file):
-            open(self.detox_file, "w").close()
+            open(self.detox_file, "w", encoding="utf-8").close()
 
     @commands.cooldown(1, 5, commands.BucketType.user)
     @commands.guild_only()
     @commands.command(name="Detox", help="Insira uma palavra ofensiva na blacklist. (Requer argumento)")
-    async def send_detox(self, ctx, message):
+    async def send_detox(self, ctx, message: str = None):
         if not message:
             await ctx.send("Por favor, insira uma palavra para ser adicionada à blacklist.")
             return
-        with open(self.detox_file, "r") as arquivo:
+
+        with open(self.detox_file, "r", encoding="utf-8") as arquivo:
             if message.lower() in arquivo.read().lower():
                 await ctx.send("Essa palavra já está na blacklist!")
                 return
-        with open(self.detox_file, "a") as arquivo:
+
+        with open(self.detox_file, "a", encoding="utf-8") as arquivo:
             arquivo.write(message.lower() + "\n")
+
         await ctx.send("Palavra adicionada à blacklist!")
 
 async def setup(client):
-    await client.add_cog(Detox(client))
+    await client.add_cog(Command_Detox(client))

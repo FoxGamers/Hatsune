@@ -1,6 +1,6 @@
 from discord.ext import commands
 
-class Reaction(commands.Cog):
+class Event_Reaction(commands.Cog):
     def __init__(self, client):
         self.client = client
 
@@ -11,4 +11,4 @@ class Reaction(commands.Cog):
             await user.add_roles(role)
 
 async def setup(client):
-    await client.add_cog(Reaction(client))
+    await client.add_cog(Event_Reaction(client))

@@ -4,7 +4,7 @@ from discord.ext import commands
 
 openai.api_key = config('TOKEN_CHAT_GPT')
 
-class Talks(commands.Cog):
+class Command_Talks(commands.Cog):
     def __init__(self, client):
         self.client = client
 
@@ -38,4 +38,4 @@ class Talks(commands.Cog):
         await ctx.send(gpt_message)
 
 async def setup(client):
-    await client.add_cog(Talks(client))
+    await client.add_cog(Command_Talks(client))
