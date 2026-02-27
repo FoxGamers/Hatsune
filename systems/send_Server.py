@@ -1,25 +1,29 @@
-import discord
 from discord.ext import commands
 from controllers.cargo.CargoController import CargoController
+import discord
 
-class ServerController(commands.Cog):
-    def __init__(self, bot):
-        self.bot = bot
+class System_Server(commands.Cog):
+    def __init__(self, client):
+        self.client = client
         self.cargo_controller = CargoController()
 
-    # Quando o bot entra em um servidor
-    @commands.Cog.listener()
-    async def on_guild_join(self, guild: discord.Guild):
+    async def register_guild(self, guild: discord.Guild):
+
+        if not guild:
+            return
 
         data = self.cargo_controller.load_data()
         guild_id = str(guild.id)
 
+        # Se o servidor ainda não estiver registrado
         if guild_id not in data:
             data[guild_id] = {
                 "cargo_verificacao": None
             }
+
             self.cargo_controller.save_data(data)
 
+            print(f"Servidor registrado: {guild.name}")
 
-async def setup(bot):
-    await bot.add_cog(ServerController(bot))
+async def setup(client):
+    await client.add_cog(System_Server(client))

@@ -22,7 +22,7 @@ class Event_Message(commands.Cog):
             await detox_cog.send_detox(message)
         
         if translator_cog:
-            await translator_cog.send_trans(message)
+            await translator_cog.send_translator(message)
 
 async def setup(client):
     await client.add_cog(Event_Message(client))

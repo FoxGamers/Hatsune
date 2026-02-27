@@ -6,7 +6,7 @@ class System_Translator(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    async def send_trans(self, message):
+    async def send_translator(self, message):
         if not message.guild:
             return
 
