@@ -7,7 +7,7 @@ class Event_Reaction(commands.Cog):
     @commands.Cog.listener()
     async def on_reaction_add(self, reaction, user):
         if reaction.emoji == "👍":
-            role = user.guild.get_role(1118292839315542066)
+            role = user.guild.get_role() # Adicionar o id do cargo!
             await user.add_roles(role)
 
 async def setup(client):
